@@ -12,16 +12,30 @@ part 'list_folder_cubit.freezed.dart';
 class ListFolderCubit extends Cubit<ListFolderState> {
   ListFolderCubit() : super(const ListFolderState.initial());
 
-  void getFolderList() {
+  void getFolderList() async {
     emit(const ListFolderState.loading());
-    Future.delayed(1000.ms, () {
-      emit(const ListFolderState.success(model: []));
+    Future.delayed(1000.ms, () async {
+      await Hive.openBox('folderNameBox');
+
+      final myBox = Hive.box('folderNameBox');
+
+      int boxSize = myBox.length;
+      List<FolderListModel> model = [];
+      for (int i = 1; i < boxSize; i++) {
+        model[i].copyWith(folderName: myBox.get(i));
+      }
+      emit(ListFolderState.success(model: model));
     });
   }
 
-  void createFolder(String folderName) {
+  void createFolder(String folderName) async {
+    await Hive.openBox('folderNameBox');
+
     final myBox = Hive.box('folderNameBox');
+
     int boxSize = myBox.length;
-    myBox.put(boxSize + 1, folderName);
+    myBox.put(boxSize, folderName);
+    print(myBox.get(folderName));
+    myBox.close();
   }
 }
