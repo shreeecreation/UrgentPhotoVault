@@ -21,7 +21,7 @@ mixin _$ListFolderState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function() success,
+    required TResult Function(List<FolderListModel> model) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$ListFolderState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? error,
-    TResult? Function()? success,
+    TResult? Function(List<FolderListModel> model)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$ListFolderState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function()? success,
+    TResult Function(List<FolderListModel> model)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function() success,
+    required TResult Function(List<FolderListModel> model) success,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? error,
-    TResult? Function()? success,
+    TResult? Function(List<FolderListModel> model)? success,
   }) {
     return initial?.call();
   }
@@ -149,7 +149,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function()? success,
+    TResult Function(List<FolderListModel> model)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,7 +241,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function() success,
+    required TResult Function(List<FolderListModel> model) success,
   }) {
     return loading();
   }
@@ -252,7 +252,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? error,
-    TResult? Function()? success,
+    TResult? Function(List<FolderListModel> model)? success,
   }) {
     return loading?.call();
   }
@@ -263,7 +263,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function()? success,
+    TResult Function(List<FolderListModel> model)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -355,7 +355,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function() success,
+    required TResult Function(List<FolderListModel> model) success,
   }) {
     return error();
   }
@@ -366,7 +366,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? error,
-    TResult? Function()? success,
+    TResult? Function(List<FolderListModel> model)? success,
   }) {
     return error?.call();
   }
@@ -377,7 +377,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function()? success,
+    TResult Function(List<FolderListModel> model)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -433,6 +433,8 @@ abstract class _$$SuccessImplCopyWith<$Res> {
   factory _$$SuccessImplCopyWith(
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<FolderListModel> model});
 }
 
 /// @nodoc
@@ -442,26 +444,58 @@ class __$$SuccessImplCopyWithImpl<$Res>
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$SuccessImpl(
+      model: null == model
+          ? _value._model
+          : model // ignore: cast_nullable_to_non_nullable
+              as List<FolderListModel>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl();
+  const _$SuccessImpl({final List<FolderListModel> model = const []})
+      : _model = model;
+
+  final List<FolderListModel> _model;
+  @override
+  @JsonKey()
+  List<FolderListModel> get model {
+    if (_model is EqualUnmodifiableListView) return _model;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_model);
+  }
 
   @override
   String toString() {
-    return 'ListFolderState.success()';
+    return 'ListFolderState.success(model: $model)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            const DeepCollectionEquality().equals(other._model, _model));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_model));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -469,9 +503,9 @@ class _$SuccessImpl implements _Success {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function() success,
+    required TResult Function(List<FolderListModel> model) success,
   }) {
-    return success();
+    return success(model);
   }
 
   @override
@@ -480,9 +514,9 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? error,
-    TResult? Function()? success,
+    TResult? Function(List<FolderListModel> model)? success,
   }) {
-    return success?.call();
+    return success?.call(model);
   }
 
   @override
@@ -491,11 +525,11 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function()? success,
+    TResult Function(List<FolderListModel> model)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(model);
     }
     return orElse();
   }
@@ -539,5 +573,10 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements ListFolderState {
-  const factory _Success() = _$SuccessImpl;
+  const factory _Success({final List<FolderListModel> model}) = _$SuccessImpl;
+
+  List<FolderListModel> get model;
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

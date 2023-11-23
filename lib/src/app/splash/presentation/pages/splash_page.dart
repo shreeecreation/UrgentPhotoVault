@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:urgentvault/src/core/routes/router.dart';
 import 'package:urgentvault/src/core/themes/app_colors.dart';
 import 'package:urgentvault/src/core/widgets/scaffold_wrapper.dart';
 
@@ -16,7 +17,9 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 1500), () {});
+    Timer(const Duration(milliseconds: 1500), () {
+      AllRoutes.routeToHomePage();
+    });
   }
 
   @override
@@ -34,6 +37,7 @@ class _SplashPageState extends State<SplashPage> {
             //   fit: BoxFit.cover,
             // ),
           ),
+          child: const Text("Welcome !"),
         ).animate().fade(duration: 500.ms),
       ),
     );
