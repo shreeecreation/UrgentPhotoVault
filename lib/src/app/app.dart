@@ -1,1 +1,1 @@
-export '';
+export 'splash/presentation/pages/splash_page.dart';
